@@ -12,7 +12,7 @@ public class App
 {
     public static void main( String[] args ) throws TelegramApiException
     {
-        TelegramBotsApi telegramBotsApi =new TelegramBotsApi(DefaultBotSession.class);
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(new Bot());
 
     }

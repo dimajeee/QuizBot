@@ -8,6 +8,6 @@ public class RequestClass implements Request {
 
     @Override
     public String getRequest() {
-        return null;
+        return req;
     }
 }
