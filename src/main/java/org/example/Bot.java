@@ -24,7 +24,7 @@ public class Bot extends TelegramLongPollingBot {
 
 
         RequestClass request = new RequestClass(text);
-        Handle handle;
+        Handle handle=new Handle();
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);
         sendMessage.setText(handle.handle(request).getResponse()); ;
