@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Bot extends TelegramLongPollingBot {
-
+    public Handle handle = new Handle();
     @Override
     public String getBotUsername() {
         return "QuizKD_bot";
@@ -24,7 +24,6 @@ public class Bot extends TelegramLongPollingBot {
 
 
         RequestClass request = new RequestClass(text);
-        Handle handle = new Handle();
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);
         sendMessage.setText(handle.handle(request).getResponse());

@@ -6,6 +6,7 @@ public class DialogManagerClass implements DialogManager {
     private int AnswerScore;
     private String WaitAnswer;
     private boolean QuizGame;
+    private boolean RestartQuestion;
 
     public void setQuizGame(boolean quizGame) {
         QuizGame = quizGame;
@@ -35,19 +36,29 @@ public class DialogManagerClass implements DialogManager {
 
     @Override
     public boolean CheckAnswer(String Answer) {
-        if (Answer == WaitAnswer) {
+        System.out.println(Answer);
+        System.out.println(WaitAnswer);
+        if (Answer.equals(WaitAnswer)) {
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean CheckNumberRemainQuiz() {
+    public boolean CheckNumberRemainQuiz(int quizCount) {
+        if (quizCount <= AnswerScore) {
+            return false;
+        }
         return true;
     }
 
-    public boolean CheckQuizGame(){
+    public boolean CheckQuizGame() {
+        System.out.println(QuizGame);
         return QuizGame;
+    }
+
+    public String GetScore() {
+        return "";
     }
 
 
