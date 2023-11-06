@@ -1,8 +1,8 @@
 package org.example;
 
 public interface DialogManager {
-    public void CheckAnswer();
+    public boolean CheckAnswer(String Answer);
 
-    public void CheckNumberRemainQuiz();
+    public boolean CheckNumberRemainQuiz();
 
 }
