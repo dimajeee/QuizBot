@@ -1,27 +1,31 @@
 package org.example;
 
 public class DialogManagerClass implements DialogManager{
-    public int TrueAnswerScore;
-    public int FalseAnswerScore;
-    public int AnswerScore;
+    private int TrueAnswerScore;
+    private int FalseAnswerScore;
+    private int AnswerScore;
     public DialogManagerClass() {
         AnswerScore = 0;
         TrueAnswerScore = 0;
         FalseAnswerScore = 0;
     }
 
-    public void TrueAnswer() {
+     private void TrueAnswer() {
         AnswerScore += 1;
         TrueAnswerScore += 1;
     }
 
-    public void FalseAnswer() {
+    private void FalseAnswer() {
         AnswerScore += 1;
         FalseAnswerScore += 1;
     }
+    @Override
+    public void CheckAnswer() {
 
-    public void CheckAnswer()
-    {
+    }
+
+    @Override
+    public void CheckNumberRemainQuiz() {
 
     }
 
