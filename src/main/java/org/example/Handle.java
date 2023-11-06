@@ -11,6 +11,9 @@ public class Handle {
             case "/help":
                 responseClass.setResponse(dataResponse.help);
                 break;
+            case "/start":
+                responseClass.setResponse(dataResponse.start);
+                break;
         }
         return responseClass;
     }
