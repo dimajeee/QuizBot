@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * отвеот пользователя
+ * ответ от пользователя
  */
 public interface Response {
     String getResponse();

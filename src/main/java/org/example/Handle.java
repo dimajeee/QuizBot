@@ -27,7 +27,7 @@ public class Handle {
             case "/score":
                 Score();
                 break;
-            case "/restart":
+            case "/restartquiz":
                 Restart();
                 break;
             case "/rereply":
@@ -87,10 +87,11 @@ public class Handle {
 
 
     private void Help() {
+        responseClass.setResponse(dataResponse.help);
     }
 
     private void Start() {
-
+        responseClass.setResponse(dataResponse.start);
     }
 
     private void StopQuiz() {
@@ -102,6 +103,7 @@ public class Handle {
     }
 
     private void Restart() {
+        Quiz();
     }
 
     private void Rereply() {

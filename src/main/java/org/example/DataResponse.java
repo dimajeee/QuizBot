@@ -5,6 +5,7 @@ public class DataResponse {
     public String help = "/start старт бота\n" +
             "/quiz начало викторины\n" +
             "/stopquiz конец викторины\n" +
+            "/restartquiz перезапустить викторину\n" +
             "/score счет игры" +
             "/rereply переответ на последний вопрос\n" +
             "/stopbot остановка бота";

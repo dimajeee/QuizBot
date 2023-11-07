@@ -8,9 +8,7 @@ public class DialogManagerClass implements DialogManager {
     private boolean QuizGame;
     private boolean RestartQuestion;
 
-    public void setQuizGame(boolean quizGame) {
-        QuizGame = quizGame;
-    }
+    public void setQuizGame(boolean quizGame) {QuizGame = quizGame;}
 
 
     public void setWaitAnswer(String waitAnswer) {
@@ -52,14 +50,9 @@ public class DialogManagerClass implements DialogManager {
         return true;
     }
 
-    public boolean CheckQuizGame() {
-        return QuizGame;
-    }
+    public boolean CheckQuizGame() {return QuizGame;}
 
     public String GetScore() {
         return "";
     }
-
-
-
 }

@@ -35,9 +35,4 @@ public class QuizResponse implements QuizResponce{
         Answer = quizTable[CurrentQuizNumber][1];
         CurrentQuizNumber += 1;
     }
-
-
-
-
-
 }
