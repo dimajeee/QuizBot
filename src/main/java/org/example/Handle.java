@@ -10,32 +10,32 @@ public class Handle {
         String HandleRequest = request.getRequest();
         String[] req = HandleRequest.split(" ");
         switch (req[0]){
-            case "/help":
-                responseClass.setResponse(dataResponse.help);
-                break;
             case "/start":
+                Start();
                 responseClass.setResponse(dataResponse.start);
                 break;
+            case "/help":
+                Help();
+                responseClass.setResponse(dataResponse.help);
+                break;
             case "/quiz":
-                dialogManager.setQuizGame(true);
-                quizResponse.UpdateQA();
-                if (dialogManager.CheckNumberRemainQuiz(quizResponse.QuizCount) == true) {
-                    dialogManager.setWaitAnswer(quizResponse.Answer);
-                    responseClass.setResponse(dataResponse.quiz + "\n" + quizResponse.Quiz);
-                }
-                else {
-                    responseClass.setResponse(dataResponse.notRemainQuiz);
-                }
+                Quiz();
                 break;
             case "/stopquiz":
-                dialogManager.setQuizGame(false);
-                responseClass.setResponse(dataResponse.stopQuiz);
+                StopQuiz();
                 break;
             case "/score":
+                Score();
                 break;
             case "/restart":
+                Restart();
                 break;
-
+            case "/rereply":
+                Rereply();
+                break;
+            case "/stop":
+                Stop();
+                break;
             default:
                 if (dialogManager.CheckQuizGame() == true) {
                     String response1;
@@ -47,11 +47,10 @@ public class Handle {
                     }
 
                     String response2;
-                    System.out.println(quizResponse.CurrentQuizNumber);
-                    if (dialogManager.CheckNumberRemainQuiz(quizResponse.QuizCount) == true) {
+                    if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount()) == true) {
                         quizResponse.UpdateQA();
-                        dialogManager.setWaitAnswer(quizResponse.Answer);
-                        response2 = quizResponse.Quiz;
+                        dialogManager.setWaitAnswer(quizResponse.getAnswer());
+                        response2 = quizResponse.getQuiz();
                     }
                     else {
                         response2 = dataResponse.notRemainQuiz;
@@ -68,5 +67,46 @@ public class Handle {
                 break;
         }
         return responseClass;
+    }
+
+
+
+
+    private void Quiz() {
+        dialogManager.setQuizGame(true);
+        quizResponse.UpdateQA();
+        if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount()) == true) {
+            dialogManager.setWaitAnswer(quizResponse.getAnswer());
+            responseClass.setResponse(dataResponse.quiz + "\n" + quizResponse.getQuiz());
+        }
+        else {
+            responseClass.setResponse(dataResponse.notRemainQuiz);
+        }
+    }
+
+
+
+    private void Help() {
+    }
+
+    private void Start() {
+
+    }
+
+    private void StopQuiz() {
+        dialogManager.setQuizGame(false);
+        responseClass.setResponse(dataResponse.stopQuiz);
+    }
+
+    private void Score() {
+    }
+
+    private void Restart() {
+    }
+
+    private void Rereply() {
+    }
+
+    private void Stop() {
     }
 }

@@ -1,13 +1,24 @@
 package org.example;
 
-public class QuizResponse {
-    public int QuizCount = 3;
-    public int CurrentQuizNumber = 0;
-    public String[][] quizTable;
+public class QuizResponse implements QuizResponce{
+    private int QuizCount = 3;
+    private int CurrentQuizNumber = 0;
+    private String[][] quizTable;
+    private String Quiz;
+    private String Answer;
 
-    public String CurrentQuiz;
-    public String Quiz;
-    public String Answer;
+    public int getQuizCount() {
+        return QuizCount;
+    }
+
+    public String getQuiz() {
+        return Quiz;
+    }
+
+    public String getAnswer() {
+        return Answer;
+    }
+
 
     public QuizResponse() {
         quizTable = new String[3][2];

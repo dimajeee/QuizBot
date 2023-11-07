@@ -2,7 +2,8 @@ package org.example;
 
 public class DataResponse {
     public String start = "Привет!Я бот с викторинами. Если тебе скучно, я тебя развлеку. Напиши /quiz и мы начнем";
-    public String help = "/quiz начало викторины\n" +
+    public String help = "/start старт бота\n" +
+            "/quiz начало викторины\n" +
             "/stopquiz конец викторины\n" +
             "/score счет игры" +
             "/rereply переответ на последний вопрос\n" +
