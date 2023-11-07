@@ -2,6 +2,7 @@ package org.example;
 
 public class ResponseClass implements Response{
     private String response;
+    public boolean responseFlag;
 
     public ResponseClass(String response){
         this.response=response;
