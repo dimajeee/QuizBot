@@ -31,6 +31,9 @@ public class Handle {
             case "/rereply":
                 Rereply();
                 break;
+            case "/nextqueastion":
+                NextQuestion();
+                break;
             case "/stop":
                 Stop();
                 break;
@@ -113,6 +116,10 @@ public class Handle {
     }
 
     private void Rereply() {
+
+    }
+
+    private void NextQuestion() {
 
     }
 

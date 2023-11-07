@@ -6,7 +6,7 @@ public class DataResponse {
             "/quiz начало викторины\n" +
             "/stopquiz конец викторины\n" +
             "/restartquiz перезапустить викторину\n" +
-            "/score счет игры" +
+            "/score счет игры\n" +
             "/rereply переответ на последний вопрос\n" +
             "/stopbot остановка бота";
     public String quiz = "Это викторина, давай играть!";
