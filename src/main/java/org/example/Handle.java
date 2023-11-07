@@ -124,6 +124,8 @@ public class Handle {
     }
 
     private void Stop() {
-
+        dialogManager.ResetScore();
+        quizResponse.ResetQuiz();
+        responseClass.setResponse(dataResponse.stop);
     }
 }
