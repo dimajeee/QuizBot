@@ -7,8 +7,8 @@ public class Handle {
     public DialogManagerClass dialogManager = new DialogManagerClass();
     public QuizResponse quizResponse = new QuizResponse();
     public ResponseClass handle (RequestClass request){
-        String request1 = request.getRequest();
-        String[] req = request1.split(" ");
+        String HandleRequest = request.getRequest();
+        String[] req = HandleRequest.split(" ");
         switch (req[0]){
             case "/help":
                 responseClass.setResponse(dataResponse.help);
@@ -21,7 +21,7 @@ public class Handle {
                 quizResponse.UpdateQA();
                 if (dialogManager.CheckNumberRemainQuiz(quizResponse.QuizCount) == true) {
                     dialogManager.setWaitAnswer(quizResponse.Answer);
-                    responseClass.setResponse(dataResponse.quiz + "\n" +  quizResponse.Quiz);
+                    responseClass.setResponse(dataResponse.quiz + "\n" + quizResponse.Quiz);
                 }
                 else {
                     responseClass.setResponse(dataResponse.notRemainQuiz);
@@ -45,20 +45,23 @@ public class Handle {
                     else {
                         response1 = dataResponse.falseAnswer;
                     }
+
                     String response2;
-                    quizResponse.UpdateQA();
+                    System.out.println(quizResponse.CurrentQuizNumber);
                     if (dialogManager.CheckNumberRemainQuiz(quizResponse.QuizCount) == true) {
-                        dialogManager.setWaitAnswer(quizResponse.Quiz);
+                        quizResponse.UpdateQA();
+                        dialogManager.setWaitAnswer(quizResponse.Answer);
                         response2 = quizResponse.Quiz;
                     }
                     else {
                         response2 = dataResponse.notRemainQuiz;
                     }
+
                     responseClass.setResponse(response1 + "\n" + response2);
 
                 }
                 else {
-                    responseClass.setResponse("");
+                    responseClass.setResponse(dataResponse.nonsense);
 
                 }
 

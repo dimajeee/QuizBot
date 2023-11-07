@@ -36,11 +36,11 @@ public class DialogManagerClass implements DialogManager {
 
     @Override
     public boolean CheckAnswer(String Answer) {
-        System.out.println(Answer);
-        System.out.println(WaitAnswer);
         if (Answer.equals(WaitAnswer)) {
+            TrueAnswer();
             return true;
         }
+        FalseAnswer();
         return false;
     }
 
@@ -53,7 +53,6 @@ public class DialogManagerClass implements DialogManager {
     }
 
     public boolean CheckQuizGame() {
-        System.out.println(QuizGame);
         return QuizGame;
     }
 
