@@ -2,11 +2,33 @@ package org.example;
 
 
 public class Handle {
+    private boolean botCondition = false;
     public ResponseClass responseClass = new ResponseClass();
     public DataResponse dataResponse = new DataResponse();
     public DialogManagerClass dialogManager = new DialogManagerClass();
     public QuizResponse quizResponse = new QuizResponse();
-    public ResponseClass handle (RequestClass request){
+
+    public ResponseClass handleWithoutResponse(RequestClass request) {
+        if (botCondition) {
+            handleWithResponse(request);
+        }
+        else {
+            String HandleRequest = request.getRequest();
+            String[] req = HandleRequest.split(" ");
+            if (req[0].equals("/start"))
+            {
+                botCondition = true;
+                handleWithResponse(request);
+            }
+            else {
+                responseClass.responseFlag = false;
+            }
+
+        }
+        return responseClass;
+    }
+
+    public void handleWithResponse (RequestClass request){
         String HandleRequest = request.getRequest();
         String[] req = HandleRequest.split(" ");
         switch (req[0]){
@@ -66,7 +88,7 @@ public class Handle {
                 }
                 break;
         }
-        return responseClass;
+        responseClass.responseFlag = true;
     }
 
     private void Help() {
@@ -75,6 +97,7 @@ public class Handle {
 
     private void Start() {
         responseClass.setResponse(dataResponse.start);
+        botCondition = true;
     }
 
 
@@ -127,5 +150,6 @@ public class Handle {
         dialogManager.ResetScore();
         quizResponse.ResetQuiz();
         responseClass.setResponse(dataResponse.stop);
+        botCondition = false;
     }
 }
