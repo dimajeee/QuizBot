@@ -35,55 +35,36 @@ public class Handle {
                 Stop();
                 break;
             default:
-                if (dialogManager.CheckQuizGame() == true) {
+                if (dialogManager.CheckQuizGame()) { // поднят ли флаг игры
                     String response1;
-                    if (dialogManager.CheckAnswer(req[0])){
-                        response1 = dataResponse.trueAnswer;
+                    if (dialogManager.CheckAnswer(req[0])){ // правильно ли человек написал ответ
+                        response1 = dataResponse.trueAnswer; // правильно
                     }
                     else {
-                        response1 = dataResponse.falseAnswer;
+                        response1 = dataResponse.falseAnswer; // неправильно
                     }
 
                     String response2;
-                    if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount()) == true) {
-                        quizResponse.UpdateQA();
-                        dialogManager.setWaitAnswer(quizResponse.getAnswer());
-                        response2 = quizResponse.getQuiz();
+                    if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount())) { // остались ли еще вопросы в копилке
+                        quizResponse.UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+                        dialogManager.setWaitAnswer(quizResponse.getAnswer()); // установим то, какой ответ от пользователя ждем
+                        response2 = quizResponse.getQuiz(); // следующий вопрос
                     }
                     else {
-                        response2 = dataResponse.notRemainQuiz;
+                        response2 = dataResponse.notRemainQuiz; // вопросов в копилке больше нет
                     }
 
                     responseClass.setResponse(response1 + "\n" + response2);
 
                 }
                 else {
-                    responseClass.setResponse(dataResponse.nonsense);
+                    responseClass.setResponse(dataResponse.nonsense); // пользователь ввел что-то не то
 
                 }
                 break;
         }
         return responseClass;
     }
-
-
-
-
-    private void Quiz() {
-        dialogManager.setQuizGame(true);
-        dialogManager.ResetScore();
-        quizResponse.ResetQuiz();
-        quizResponse.UpdateQA();
-        if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount()) == true) {
-            dialogManager.setWaitAnswer(quizResponse.getAnswer());
-            responseClass.setResponse(dataResponse.quiz + "\n" + quizResponse.getQuiz());
-        }
-        else {
-            responseClass.setResponse(dataResponse.notRemainQuiz);
-        }
-    }
-
-
 
     private void Help() {
         responseClass.setResponse(dataResponse.help);
@@ -93,27 +74,49 @@ public class Handle {
         responseClass.setResponse(dataResponse.start);
     }
 
+
+    private void Quiz() {
+        dialogManager.setQuizGame(true); // поднятие флага, что квиз начался
+        dialogManager.ResetScore(); // обнулим счет прошлого квиза
+        quizResponse.ResetQuiz(); // обнуляем квиз
+        quizResponse.UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+        if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount())) { // если еще остались квизы в копилке
+            dialogManager.setWaitAnswer(quizResponse.getAnswer()); // установим то, какой ответ от пользователя ждем
+            responseClass.setResponse(dataResponse.quiz + "\n" + quizResponse.getQuiz()); // начало квиза и первый вопрос
+        }
+        else {
+            responseClass.setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+        }
+    }
+
+
+
+
+
     private void StopQuiz() {
-        dialogManager.setQuizGame(false);
-        responseClass.setResponse(dataResponse.stopQuiz);
-        dialogManager.ResetScore();
+        dialogManager.setQuizGame(false); // опускаем флаг игры
+        dialogManager.ResetScore(); // обнулим счет квиза, который заканчиваем
+        quizResponse.ResetQuiz(); // обнуляем квиз
+        responseClass.setResponse(dataResponse.stopQuiz); // выводим, то что квиз остановлен
     }
 
     private void Score() {
-        String score = dialogManager.GetScore();
-        String[] splitScore = score.split(" ");
+        String score = dialogManager.GetScore(); // достаем счет из dialog manager в формате строки, состоящей из трех чисел, записанных через пробел
+        String[] splitScore = score.split(" "); // разобьем на отдельные числа в массив строк
         responseClass.setResponse(dataResponse.TrueAnswerScore + splitScore[0] + "\n" +
                 dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
-                dataResponse.AnswerScore + splitScore[2] + "\n");
+                dataResponse.AnswerScore + splitScore[2] + "\n"); // форматированный вывод
     }
 
     private void Restart() {
-        Quiz();
+        Quiz(); // запустим просто заново квиз
     }
 
     private void Rereply() {
+
     }
 
     private void Stop() {
+
     }
 }
