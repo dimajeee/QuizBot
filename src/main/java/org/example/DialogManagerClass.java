@@ -53,6 +53,15 @@ public class DialogManagerClass implements DialogManager {
     public boolean CheckQuizGame() {return QuizGame;}
 
     public String GetScore() {
-        return "";
+        String TASS = String.valueOf(TrueAnswerScore);
+        String FASS = String.valueOf(FalseAnswerScore);
+        String ASS = String.valueOf(AnswerScore);
+        return TASS + " " + FASS + " " + ASS;
+    }
+
+    public void ResetScore() {
+        AnswerScore = 0;
+        TrueAnswerScore = 0;
+        FalseAnswerScore = 0;
     }
 }

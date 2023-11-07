@@ -12,11 +12,9 @@ public class Handle {
         switch (req[0]){
             case "/start":
                 Start();
-                responseClass.setResponse(dataResponse.start);
                 break;
             case "/help":
                 Help();
-                responseClass.setResponse(dataResponse.help);
                 break;
             case "/quiz":
                 Quiz();
@@ -63,7 +61,6 @@ public class Handle {
                     responseClass.setResponse(dataResponse.nonsense);
 
                 }
-
                 break;
         }
         return responseClass;
@@ -74,6 +71,8 @@ public class Handle {
 
     private void Quiz() {
         dialogManager.setQuizGame(true);
+        dialogManager.ResetScore();
+        quizResponse.ResetQuiz();
         quizResponse.UpdateQA();
         if (dialogManager.CheckNumberRemainQuiz(quizResponse.getQuizCount()) == true) {
             dialogManager.setWaitAnswer(quizResponse.getAnswer());
@@ -97,9 +96,15 @@ public class Handle {
     private void StopQuiz() {
         dialogManager.setQuizGame(false);
         responseClass.setResponse(dataResponse.stopQuiz);
+        dialogManager.ResetScore();
     }
 
     private void Score() {
+        String score = dialogManager.GetScore();
+        String[] splitScore = score.split(" ");
+        responseClass.setResponse(dataResponse.TrueAnswerScore + splitScore[0] + "\n" +
+                dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
+                dataResponse.AnswerScore + splitScore[2] + "\n");
     }
 
     private void Restart() {

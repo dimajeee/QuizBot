@@ -15,4 +15,7 @@ public class DataResponse {
     public String stopQuiz = "Викторина остановлена, можешь вернуться в любое другое время!";
     public String notRemainQuiz = "Вопросов больше не осталось, приходи позже!";
     public String nonsense = "Ты ввел неправильную команду\nВведи /help, чтобы узнать список команд";
+    public String TrueAnswerScore = "Правильных ответов:\t";
+    public String FalseAnswerScore = "Неправильных ответов:\t";
+    public String AnswerScore = "Всего ответов:\t";
 }

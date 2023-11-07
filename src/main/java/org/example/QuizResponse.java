@@ -35,4 +35,8 @@ public class QuizResponse implements QuizResponce{
         Answer = quizTable[CurrentQuizNumber][1];
         CurrentQuizNumber += 1;
     }
+
+    public void ResetQuiz() {
+        CurrentQuizNumber = 0;
+    }
 }

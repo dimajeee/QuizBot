@@ -5,4 +5,5 @@ public interface QuizResponce {
     public String getQuiz();
     public String getAnswer();
     public void UpdateQA();
+    public void ResetQuiz();
 }
