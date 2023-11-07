@@ -26,13 +26,15 @@ public class Bot extends TelegramLongPollingBot {
         RequestClass request = new RequestClass(text);
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);
-        sendMessage.setText(handle.handle(request).getResponse());
-
-        try {
-            this.execute(sendMessage);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+        ResponseClass responseClass = handle.handleWithoutResponse(request);
+        String Text = responseClass.getResponse();
+        if (responseClass.responseFlag) {
+            sendMessage.setText(Text);
+            try {
+                this.execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
         }
-
     }
 }
