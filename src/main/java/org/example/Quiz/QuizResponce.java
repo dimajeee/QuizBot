@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Quiz;
 
 public interface QuizResponce {
     public int getQuizCount();

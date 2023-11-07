@@ -1,6 +1,8 @@
-package org.example;
+package org.example.Quiz;
 
-public class QuizResponse implements QuizResponce{
+import org.example.Quiz.QuizResponce;
+
+public class QuizResponse implements QuizResponce {
     private int QuizCount = 3;
     private int CurrentQuizNumber = 0;
     private String[][] quizTable;

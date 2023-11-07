@@ -1,6 +1,12 @@
 package org.example;
 
 
+import org.example.DialogManager.DialogManagerClass;
+import org.example.Quiz.QuizResponse;
+import org.example.Response.DataResponse;
+import org.example.Response.ResponseClass;
+import org.example.Request.RequestClass;
+
 public class Handle {
     private boolean botCondition = false;
     public ResponseClass responseClass = new ResponseClass();

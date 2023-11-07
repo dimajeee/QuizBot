@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Request;
 
 public class RequestClass implements Request {
 

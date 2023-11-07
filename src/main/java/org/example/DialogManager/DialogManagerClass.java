@@ -1,4 +1,6 @@
-package org.example;
+package org.example.DialogManager;
+
+import org.example.DialogManager.DialogManager;
 
 public class DialogManagerClass implements DialogManager {
     private int TrueAnswerScore;

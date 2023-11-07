@@ -1,6 +1,8 @@
-package org.example;
+package org.example.Response;
 
-public class ResponseClass implements Response{
+import org.example.Response.Response;
+
+public class ResponseClass implements Response {
     private String response;
     public boolean responseFlag;
 

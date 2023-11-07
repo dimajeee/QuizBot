@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Response;
 
 public class DataResponse {
     public String start = "Привет! Я бот с викторинами. Если тебе скучно, я тебя развлеку. Напиши /quiz и мы начнем с тобой викторину!";

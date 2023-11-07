@@ -1,4 +1,4 @@
-package org.example;
+package org.example.DialogManager;
 
 public interface DialogManager {
     public void setQuizGame(boolean quizGame);
