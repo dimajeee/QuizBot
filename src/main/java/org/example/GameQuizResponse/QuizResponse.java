@@ -1,6 +1,4 @@
-package org.example.Quiz;
-
-import org.example.Quiz.QuizResponce;
+package org.example.GameQuizResponse;
 
 public class QuizResponse implements QuizResponce {
     private int QuizCount = 3;

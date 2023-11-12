@@ -1,8 +1,6 @@
-package org.example.DialogManager;
+package org.example.GameQuiz;
 
-import org.example.DialogManager.DialogManager;
-
-public class DialogManagerClass implements DialogManager {
+public class GameQuizClass implements GameQuiz {
     private int TrueAnswerScore;
     private int FalseAnswerScore;
     private int AnswerScore;
@@ -17,7 +15,7 @@ public class DialogManagerClass implements DialogManager {
         WaitAnswer = waitAnswer;
     }
 
-    public DialogManagerClass() {
+    public GameQuizClass() {
         AnswerScore = 0;
         TrueAnswerScore = 0;
         FalseAnswerScore = 0;

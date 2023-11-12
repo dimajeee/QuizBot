@@ -1,6 +1,6 @@
-package org.example.DialogManager;
+package org.example.GameQuiz;
 
-public interface DialogManager {
+public interface GameQuiz {
     public void setQuizGame(boolean quizGame);
     public void setWaitAnswer(String waitAnswer);
 

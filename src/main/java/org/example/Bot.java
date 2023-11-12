@@ -22,13 +22,12 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         String chatID = update.getMessage().getChatId().toString();
-        String text = update.getMessage().getText().toString();
+        String text = update.getMessage().getText();
 
-
-        RequestClass request = new RequestClass(text);
+        handle.dataPack.requestClass.setRequest(text);
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);
-        ResponseClass responseClass = handle.handleWithoutResponse(request);
+        ResponseClass responseClass = handle.handleWithoutResponse();
         String Text = responseClass.getResponse();
         if (responseClass.responseFlag) {
             sendMessage.setText(Text);
