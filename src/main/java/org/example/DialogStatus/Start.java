@@ -1,12 +1,15 @@
 package org.example.DialogStatus;
 
-import org.example.DataPack;
 import org.example.DialogContext;
+import org.example.Person.PersonClass;
+import org.example.Response.DataResponse;
 
 public class Start implements DialogStatus{
-    DataPack dataPack;
-    public Start(DataPack dataPack) {
-        this.dataPack = dataPack;
+    private PersonClass person;
+    public DataResponse dataResponse;
+    public Start(PersonClass person, DataResponse dataResponse) {
+        this.person = person;
+        this.dataResponse = dataResponse;
     }
     @Override
     public String getDialogStatus() {
@@ -15,25 +18,25 @@ public class Start implements DialogStatus{
 
     @Override
     public void nextDialogStatus(DialogContext dialogContext) {
-        String HandleRequest = dataPack.requestClass.getRequest();
+        String HandleRequest = person.getRequestClass().getRequest();
         String[] req = HandleRequest.split(" ");
         switch (req[0]) {
             case "/help":
-                dataPack.responseClass.setResponse(dataPack.dataResponse.help);
-                dialogContext.setDialogStatus(new Start(dataPack));
+                person.getResponseClass().setResponse(dataResponse.help);
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
             case "/start":
-                dataPack.responseClass.setResponse(dataPack.dataResponse.start);
-                dialogContext.setDialogStatus(new Start(dataPack));
+                person.getResponseClass().setResponse(dataResponse.start);
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
             case "/quiz":
                 Quiz();
-//                dataPack.responseClass.setResponse(dataPack.dataResponse.quiz);
-                dialogContext.setDialogStatus(new NextQuiz(dataPack));
+                person.getResponseClass().setResponse(dataResponse.quiz);
+                dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
                 break;
             case "/stop":
                 Stop();
-                dialogContext.setDialogStatus(new Start(dataPack));
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
             case "/score":
                 Score();
@@ -42,8 +45,8 @@ public class Start implements DialogStatus{
                 NextQuestion();
                 break;
             default:
-                dataPack.responseClass.setResponse(dataPack.dataResponse.nonsense);
-                dialogContext.setDialogStatus(new Start(dataPack));
+                person.getResponseClass().setResponse(dataResponse.nonsense);
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
             }
     }
@@ -52,49 +55,49 @@ public class Start implements DialogStatus{
 
     @Override
     public void previousDialogStatus(DialogContext dialogContext) {
-        dialogContext.setDialogStatus(new Start(dataPack));
+        dialogContext.setDialogStatus(new Start(person, dataResponse));
     }
 
     private void Quiz() {
-        dataPack.gameQuizClass.setQuizGame(true); // поднятие флага, что квиз начался
-        dataPack.gameQuizClass.ResetScore(); // обнулим счет прошлого квиза
-        dataPack.quizResponse.ResetQuiz(); // обнуляем квиз
-        dataPack.quizResponse.UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-        if (dataPack.gameQuizClass.CheckNumberRemainQuiz(dataPack.quizResponse.getQuizCount())) { // если еще остались квизы в копилке
-            dataPack.gameQuizClass.setWaitAnswer(dataPack.quizResponse.getAnswer()); // установим то, какой ответ от пользователя ждем
-            dataPack.responseClass.setResponse(dataPack.dataResponse.quiz + "\n" + dataPack.quizResponse.getQuiz()); // начало квиза и первый вопрос
+        person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
+        person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
+        person.getQuizResponce().ResetQuiz(); // обнуляем квиз
+        person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+        if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
+            person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
+            person.getResponseClass().setResponse(dataResponse.quiz + "\n" + person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
         }
         else {
-            dataPack.responseClass.setResponse(dataPack.dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+            person.getResponseClass().setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
         }
     }
 
     private void Stop() {
-        dataPack.gameQuizClass.ResetScore();
-        dataPack.quizResponse.ResetQuiz();
-        dataPack.responseClass.setResponse(dataPack.dataResponse.stop);
+        person.getGameQuizClass().ResetScore();
+        person.getQuizResponce().ResetQuiz();
+        person.getResponseClass().setResponse(dataResponse.stop);
     }
 
     private void Score() {
-        String score = dataPack.gameQuizClass.GetScore(); // достаем счет из dialog manager в формате строки, состоящей из трех чисел, записанных через пробел
+        String score = person.getGameQuizClass().GetScore(); // достаем счет из dialog manager в формате строки, состоящей из трех чисел, записанных через пробел
         String[] splitScore = score.split(" "); // разобьем на отдельные числа в массив строк
-        dataPack.responseClass.setResponse(dataPack.dataResponse.TrueAnswerScore + splitScore[0] + "\n" +
-                dataPack.dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
-                dataPack.dataResponse.AnswerScore + splitScore[2] + "\n"); // форматированный вывод
+        person.getResponseClass().setResponse(dataResponse.TrueAnswerScore + splitScore[0] + "\n" +
+                dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
+                dataResponse.AnswerScore + splitScore[2] + "\n"); // форматированный вывод
     }
 
     private void NextQuestion() {
-        if (dataPack.gameQuizClass.getQuizGame()) {
-            dataPack.gameQuizClass.setQuizGame(true); // поднятие флага, что квиз начался
-            dataPack.gameQuizClass.ResetScore(); // обнулим счет прошлого квиза
-            dataPack.quizResponse.ResetQuiz(); // обнуляем квиз
-            dataPack.quizResponse.UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-            if (dataPack.gameQuizClass.CheckNumberRemainQuiz(dataPack.quizResponse.getQuizCount())) { // если еще остались квизы в копилке
-                dataPack.gameQuizClass.setWaitAnswer(dataPack.quizResponse.getAnswer()); // установим то, какой ответ от пользователя ждем
-                dataPack.responseClass.setResponse(dataPack.dataResponse.quiz + "\n" + dataPack.quizResponse.getQuiz()); // начало квиза и первый вопрос
+        if (person.getGameQuizClass().getQuizGame()) {
+            person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
+            person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
+            person.getQuizResponce().ResetQuiz(); // обнуляем квиз
+            person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+            if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
+                person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
+                person.getResponseClass().setResponse(dataResponse.quiz + "\n" + person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
             }
             else {
-                dataPack.responseClass.setResponse(dataPack.dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+                person.getResponseClass().setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
             }
         }
         else {
