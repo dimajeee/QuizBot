@@ -38,6 +38,9 @@ public class Start implements DialogStatus{
             case "/score":
                 Score();
                 break;
+            case "/nextquestion":
+                NextQuestion();
+                break;
             default:
                 dataPack.responseClass.setResponse(dataPack.dataResponse.nonsense);
                 dialogContext.setDialogStatus(new Start(dataPack));
@@ -78,5 +81,24 @@ public class Start implements DialogStatus{
         dataPack.responseClass.setResponse(dataPack.dataResponse.TrueAnswerScore + splitScore[0] + "\n" +
                 dataPack.dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
                 dataPack.dataResponse.AnswerScore + splitScore[2] + "\n"); // форматированный вывод
+    }
+
+    private void NextQuestion() {
+        if (dataPack.gameQuizClass.getQuizGame()) {
+            dataPack.gameQuizClass.setQuizGame(true); // поднятие флага, что квиз начался
+            dataPack.gameQuizClass.ResetScore(); // обнулим счет прошлого квиза
+            dataPack.quizResponse.ResetQuiz(); // обнуляем квиз
+            dataPack.quizResponse.UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+            if (dataPack.gameQuizClass.CheckNumberRemainQuiz(dataPack.quizResponse.getQuizCount())) { // если еще остались квизы в копилке
+                dataPack.gameQuizClass.setWaitAnswer(dataPack.quizResponse.getAnswer()); // установим то, какой ответ от пользователя ждем
+                dataPack.responseClass.setResponse(dataPack.dataResponse.quiz + "\n" + dataPack.quizResponse.getQuiz()); // начало квиза и первый вопрос
+            }
+            else {
+                dataPack.responseClass.setResponse(dataPack.dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+            }
+        }
+        else {
+
+        }
     }
 }

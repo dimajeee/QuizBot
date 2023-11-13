@@ -5,7 +5,13 @@ public class GameQuizClass implements GameQuiz {
     private int FalseAnswerScore;
     private int AnswerScore;
     private String WaitAnswer;
+
+
+
     private boolean QuizGame;
+    public boolean getQuizGame() {
+        return QuizGame;
+    }
     private boolean RestartQuestion;
 
     public void setQuizGame(boolean quizGame) {QuizGame = quizGame;}
@@ -35,11 +41,18 @@ public class GameQuizClass implements GameQuiz {
     @Override
     public boolean CheckAnswer(String Answer) {
         if (Answer.equals(WaitAnswer)) {
-            TrueAnswer();
             return true;
         }
-        FalseAnswer();
         return false;
+    }
+    public void DoCheckAnswer(String Answer) {
+        if (CheckAnswer(Answer)) {
+            TrueAnswer();
+        }
+        else {
+            FalseAnswer();
+        }
+
     }
 
     @Override
@@ -53,10 +66,10 @@ public class GameQuizClass implements GameQuiz {
     public boolean CheckQuizGame() {return QuizGame;}
 
     public String GetScore() {
-        String TASS = String.valueOf(TrueAnswerScore);
-        String FASS = String.valueOf(FalseAnswerScore);
-        String ASS = String.valueOf(AnswerScore);
-        return TASS + " " + FASS + " " + ASS;
+        String TAS = String.valueOf(TrueAnswerScore);
+        String FAS = String.valueOf(FalseAnswerScore);
+        String AS = String.valueOf(AnswerScore);
+        return TAS + " " + FAS + " " + AS;
     }
 
     public void ResetScore() {
