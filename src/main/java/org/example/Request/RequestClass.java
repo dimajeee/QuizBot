@@ -3,7 +3,8 @@ package org.example.Request;
 public class RequestClass implements Request {
 
     private String request;
-
+    public RequestClass() {
+    }
     public RequestClass(String request){
         this.request = request;
     }
