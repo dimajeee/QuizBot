@@ -31,7 +31,7 @@ public class Start implements DialogStatus{
                 break;
             case "/quiz":
                 Quiz();
-                person.getResponseClass().setResponse(dataResponse.quiz);
+//                person.getResponseClass().setResponse(dataResponse.quiz);
                 dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
                 break;
             case "/stop":
@@ -90,11 +90,10 @@ public class Start implements DialogStatus{
         if (person.getGameQuizClass().getQuizGame()) {
             person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
             person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
-            person.getQuizResponce().ResetQuiz(); // обнуляем квиз
             person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
             if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
                 person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
-                person.getResponseClass().setResponse(dataResponse.quiz + "\n" + person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
+                person.getResponseClass().setResponse(person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
             }
             else {
                 person.getResponseClass().setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет

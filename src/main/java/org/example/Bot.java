@@ -10,18 +10,21 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.ArrayList;
 
 public class Bot extends TelegramLongPollingBot {
-    ArrayList<PersonClass> persons = new ArrayList<PersonClass>();
-    public Handle handle = new Handle();
+    public Bot() {
+        persons = new ArrayList<PersonClass>();
+        handle = new Handle();
+    }
+    ArrayList<PersonClass> persons;
+    public Handle handle;
 
-    public ResponseClass responseClass = new ResponseClass();
     @Override
     public String getBotUsername() {
-        return "QuizKD_bot";
-    } // qqqkd_bot
+        return "qqqkd_bot";
+    } //
 
     @Override
     public String getBotToken() {
-        return "6000806341:AAFLcadyPTrN7qO4-CwYlY9LJl8lLOZ6Z0Q";
+        return "5915973194:AAFx3pZnoeBvfnzngDgYBAgqt86a-Hjsh3Y";
     } // 5915973194:AAFx3pZnoeBvfnzngDgYBAgqt86a-Hjsh3Y
 
 
@@ -31,22 +34,21 @@ public class Bot extends TelegramLongPollingBot {
         String text = update.getMessage().getText().toString();
         System.out.println(text);
         PersonClass person = getPersonByChatID(chatID, text);
-//        RequestClass requestClass = new RequestClass(text);
 
 
-//            handle.dataPack.requestClass.setRequest(text);
-            SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(chatID);
-            handle.handleWithoutResponse(person);
-            String Text = person.getResponseClass().getResponse();
-            if (responseClass.responseFlag) {
-                sendMessage.setText(Text);
-                try {
-                    this.execute(sendMessage);
-                } catch (TelegramApiException e) {
-                    throw new RuntimeException(e);
-                }
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatID);
+        handle.handleWithoutResponse(person);
+        String Text = person.getResponseClass().getResponse();
+        if (person.getResponseClass().responseFlag) {
+            sendMessage.setText(Text);
+            try {
+                this.execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
             }
+        }
+
         System.out.println(text);
     }
 

@@ -10,7 +10,7 @@ import org.example.Response.ResponseClass;
 public class PersonClass {
     private String chatID;
     private ResponseClass responseClass;
-    private boolean BotCondition;
+    private boolean BotCondition = false;
     public DialogContext dialogContext;
     private RequestClass requestClass;
     private GameQuizClass gameQuizClass;
@@ -18,9 +18,10 @@ public class PersonClass {
     public PersonClass(String chatID, String req) {
         this.chatID = chatID;
         gameQuizClass = new GameQuizClass();
-        quizResponce = new QuizResponse();
+        responseClass = new ResponseClass();
         dialogContext = new DialogContext();
         quizResponce = new QuizResponse();
+        requestClass = new RequestClass(req);
     }
     public void setBotCondition(boolean botCondition) {
         BotCondition = botCondition;

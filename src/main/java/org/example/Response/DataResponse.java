@@ -1,7 +1,7 @@
 package org.example.Response;
 
 public class DataResponse {
-    public String start = "Привет! Я бот с викторинами. Если тебе скучно, я тебя развлеку. Напиши /quiz и мы начнем с тобой викторину!";
+    public String start = "Привет! Я бот с викторинами. Если тебе скучно, я тебя развлеку. Напиши /quiz и мы начнем с тобой викторину!\n";
     public String stop = "Бот остановлен, возвращайся скорее!";
     public String help = "/start старт бота\n" +
             "/quiz начало викторины\n" +
