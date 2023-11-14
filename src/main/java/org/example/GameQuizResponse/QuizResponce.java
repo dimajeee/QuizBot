@@ -6,4 +6,5 @@ public interface QuizResponce {
     public String getAnswer();
     public void UpdateQA();
     public void ResetQuiz();
+    public boolean CheckRemainQuiz();
 }

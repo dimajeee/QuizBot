@@ -6,7 +6,6 @@ public class QuizResponse implements QuizResponce {
     private String[][] quizTable;
     private String Quiz;
     private String Answer;
-
     public int getQuizCount() {
         return QuizCount;
     }
@@ -29,6 +28,12 @@ public class QuizResponse implements QuizResponce {
         quizTable[2][0] = "Какая первая ближайшая планета к Солнцу?";
         quizTable[2][1] = "Меркурий";
     }
+    public boolean CheckRemainQuiz() {
+        if (CurrentQuizNumber < QuizCount) {
+            return true;
+        }
+        return false;
+    }
 
     public void UpdateQA() {
         Quiz = quizTable[CurrentQuizNumber][0];
@@ -39,4 +44,6 @@ public class QuizResponse implements QuizResponce {
     public void ResetQuiz() {
         CurrentQuizNumber = 0;
     }
+
+
 }

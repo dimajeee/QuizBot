@@ -28,9 +28,9 @@ public class NextQuiz implements DialogStatus{
             String response2 = SecondResponse(dialogContext);
             person.getResponseClass().setResponse(response1 + "\n" + response2);
         }
-//        else if (CheckCommand(req[0])) {
-//            DoCommand(dialogContext, req);
-//        }
+        else if (CheckCommand(req[0])) {
+            DoCommand(dialogContext, req);
+        }
         else {
             response1 = dataResponse.falseAnswer; // неправильно
             String response2 = SecondResponse(dialogContext);
@@ -46,30 +46,20 @@ public class NextQuiz implements DialogStatus{
     }
 
     private boolean CheckCommand(String req) {
-        String commands = "/start" + "/stop" + "/score" + "/help" + "/quiz";
+        String commands = "/nextquestion" + "/rereply" + "/score";
         return commands.contains(req);
     }
     private void DoCommand(DialogContext dialogContext, String[] req) {
         switch (req[0]) {
-            case "/help":
-                person.getResponseClass().setResponse(dataResponse.help);
-                dialogContext.setDialogStatus(new Start(person, dataResponse));
-                break;
-            case "/start":
-                person.getResponseClass().setResponse(dataResponse.start);
-                dialogContext.setDialogStatus(new Start(person, dataResponse));
-                break;
-            case "/quiz":
-                Quiz();
-                person.getResponseClass().setResponse(dataResponse.quiz);
-                dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
-                break;
-            case "/stop":
-                Stop();
-                dialogContext.setDialogStatus(new Start(person, dataResponse));
-                break;
             case "/score":
                 Score();
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
+                break;
+            case "/rereply":
+                Rereply();
+                break;
+            case "/nextquestion":
+                NextQuestion();
                 break;
             default:
                 person.getResponseClass().setResponse(dataResponse.nonsense);
@@ -77,8 +67,6 @@ public class NextQuiz implements DialogStatus{
                 break;
         }
     }
-
-
 
     private String SecondResponse(DialogContext dialogContext) {
         String response;
@@ -95,24 +83,33 @@ public class NextQuiz implements DialogStatus{
         return response;
     }
 
-    private void Quiz() {
-        person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
-        person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
-        person.getQuizResponce().ResetQuiz(); // обнуляем квиз
-        person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-        if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
-            person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
-            person.getResponseClass().setResponse(dataResponse.quiz + "\n" + person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
+    private void Rereply() {
+        if (person.getGameQuizClass().getQuizGame()) { // игра идет
+            person.getResponseClass().setResponse(person.getQuizResponce().getQuiz());
         }
         else {
-            person.getResponseClass().setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+            person.getResponseClass().setResponse(dataResponse.notGameQuiz);
         }
     }
 
-    private void Stop() {
-        person.getGameQuizClass().ResetScore();
-        person.getQuizResponce().ResetQuiz();
-        person.getResponseClass().setResponse(dataResponse.stop);
+    private void NextQuestion() {
+        if (person.getGameQuizClass().getQuizGame()) {
+            boolean local = false;
+            if (person.getQuizResponce().CheckRemainQuiz()) {
+                person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+                local = true;
+            }
+            if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount()) && local) { // если еще остались квизы в копилке
+                person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
+                person.getResponseClass().setResponse(person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
+            }
+            else {
+                person.getResponseClass().setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
+            }
+        }
+        else {
+            person.getResponseClass().setResponse(dataResponse.notGameQuiz);
+        }
     }
 
     private void Score() {
@@ -122,5 +119,4 @@ public class NextQuiz implements DialogStatus{
                 dataResponse.FalseAnswerScore + splitScore[1] + "\n" +
                 dataResponse.AnswerScore + splitScore[2] + "\n"); // форматированный вывод
     }
-
 }

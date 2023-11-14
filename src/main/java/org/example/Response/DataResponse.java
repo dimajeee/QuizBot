@@ -19,4 +19,5 @@ public class DataResponse {
     public String TrueAnswerScore = "Правильных ответов:\t";
     public String FalseAnswerScore = "Неправильных ответов:\t";
     public String AnswerScore = "Всего ответов:\t";
+    public String notGameQuiz = "Вы не играете в викторину!";
 }

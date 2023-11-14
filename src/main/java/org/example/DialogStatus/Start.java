@@ -31,18 +31,27 @@ public class Start implements DialogStatus{
                 break;
             case "/quiz":
                 Quiz();
-//                person.getResponseClass().setResponse(dataResponse.quiz);
                 dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
                 break;
             case "/stop":
                 Stop();
                 dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
+            case "/stopquiz":
+                StopQuiz();
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
+                break;
             case "/score":
                 Score();
+                dialogContext.setDialogStatus(new Start(person, dataResponse));
                 break;
             case "/nextquestion":
                 NextQuestion();
+                dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
+                break;
+            case "/rereply":
+                Rereply();
+                dialogContext.setDialogStatus(new NextQuiz(person, dataResponse));
                 break;
             default:
                 person.getResponseClass().setResponse(dataResponse.nonsense);
@@ -88,10 +97,12 @@ public class Start implements DialogStatus{
 
     private void NextQuestion() {
         if (person.getGameQuizClass().getQuizGame()) {
-            person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
-            person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
-            person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-            if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
+            boolean local = false;
+            if (person.getQuizResponce().CheckRemainQuiz()) {
+                person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
+                local = true;
+            }
+            if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount()) && local) { // если еще остались квизы в копилке
                 person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
                 person.getResponseClass().setResponse(person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
             }
@@ -100,7 +111,24 @@ public class Start implements DialogStatus{
             }
         }
         else {
-
+            person.getResponseClass().setResponse(dataResponse.notGameQuiz);
         }
     }
+
+    private void Rereply() {
+        if (person.getGameQuizClass().getQuizGame()) { // игра идет
+            person.getResponseClass().setResponse(person.getQuizResponce().getQuiz());
+        }
+        else {
+            person.getResponseClass().setResponse(dataResponse.notGameQuiz);
+        }
+    }
+
+    private void StopQuiz() {
+        person.getGameQuizClass().setQuizGame(false); // опускаем флаг игры
+        person.getGameQuizClass().ResetScore(); // обнулим счет квиза, который заканчиваем
+        person.getQuizResponce().ResetQuiz(); // обнуляем квиз
+        person.getResponseClass().setResponse(dataResponse.stopQuiz); // выводим, то что квиз остановлен
+    }
+
 }
