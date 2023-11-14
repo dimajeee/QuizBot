@@ -60,8 +60,6 @@ public class Start implements DialogStatus{
             }
     }
 
-
-
     @Override
     public void previousDialogStatus(DialogContext dialogContext) {
         dialogContext.setDialogStatus(new Start(person, dataResponse));
@@ -71,8 +69,8 @@ public class Start implements DialogStatus{
         person.getGameQuizClass().setQuizGame(true); // поднятие флага, что квиз начался
         person.getGameQuizClass().ResetScore(); // обнулим счет прошлого квиза
         person.getQuizResponce().ResetQuiz(); // обнуляем квиз
-        person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-        if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // если еще остались квизы в копилке
+        if (person.getQuizResponce().CheckRemainQuiz()) { // если еще остались квизы в копилке
+            person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
             person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
             person.getResponseClass().setResponse(dataResponse.quiz + "\n" + person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
         }

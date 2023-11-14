@@ -79,7 +79,7 @@ public class Handle {
 //    }
 
     private boolean CheckCommand(String req) {
-        String commands = "/start" + "/stop" + "/help" + "/quiz" + "/stopquiz";
+        String commands = "/start" + "/stop" + "/help" + "/quiz" + "/stopquiz" + "/restartquiz";
         return commands.contains(req);
     }
 

@@ -70,7 +70,8 @@ public class NextQuiz implements DialogStatus{
 
     private String SecondResponse(DialogContext dialogContext) {
         String response;
-        if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount())) { // остались ли еще вопросы в копилке
+        if (person.getQuizResponce().CheckRemainQuiz())
+        { // остались ли еще вопросы в копилке
             person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
             person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
             response = person.getQuizResponce().getQuiz(); // следующий вопрос
@@ -94,12 +95,8 @@ public class NextQuiz implements DialogStatus{
 
     private void NextQuestion() {
         if (person.getGameQuizClass().getQuizGame()) {
-            boolean local = false;
             if (person.getQuizResponce().CheckRemainQuiz()) {
                 person.getQuizResponce().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-                local = true;
-            }
-            if (person.getGameQuizClass().CheckNumberRemainQuiz(person.getQuizResponce().getQuizCount()) && local) { // если еще остались квизы в копилке
                 person.getGameQuizClass().setWaitAnswer(person.getQuizResponce().getAnswer()); // установим то, какой ответ от пользователя ждем
                 person.getResponseClass().setResponse(person.getQuizResponce().getQuiz()); // начало квиза и первый вопрос
             }
