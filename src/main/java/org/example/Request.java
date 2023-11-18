@@ -1,17 +1,16 @@
-package org.example.Request;
+package org.example;
 
-public class RequestClass implements Request {
+public class Request{
 
     private String request;
-    public RequestClass() {
+    public Request() {
     }
-    public RequestClass(String request){
+    public Request(String request){
         this.request = request;
     }
     public void setRequest(String request) {
         this.request = request;
     }
-    @Override
     public String getRequest() {
         return request;
     }

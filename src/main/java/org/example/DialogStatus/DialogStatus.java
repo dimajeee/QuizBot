@@ -1,11 +1,12 @@
 package org.example.DialogStatus;
 
+import org.example.DataResponse;
 import org.example.DialogContext;
-import org.example.Response.ResponseClass;
+import org.example.Response;
 
 public interface DialogStatus {
     String getDialogStatus();
-    void nextDialogStatus(DialogContext dialogContext);
+    Response nextDialogStatus(DialogContext dialogContext, String[] req);
     void previousDialogStatus(DialogContext dialogContext);
 
 }

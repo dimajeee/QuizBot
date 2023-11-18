@@ -1,6 +1,6 @@
-package org.example.GameQuiz;
+package org.example;
 
-public class GameQuizClass implements GameQuiz {
+public class GameQuiz {
     private int TrueAnswerScore;
     private int FalseAnswerScore;
     private int AnswerScore;
@@ -12,7 +12,6 @@ public class GameQuizClass implements GameQuiz {
     public boolean getQuizGame() {
         return QuizGame;
     }
-    private boolean RestartQuestion;
 
     public void setQuizGame(boolean quizGame) {QuizGame = quizGame;}
 
@@ -21,7 +20,7 @@ public class GameQuizClass implements GameQuiz {
         WaitAnswer = waitAnswer;
     }
 
-    public GameQuizClass() {
+    public GameQuiz() {
         AnswerScore = 0;
         TrueAnswerScore = 0;
         FalseAnswerScore = 0;
@@ -38,32 +37,17 @@ public class GameQuizClass implements GameQuiz {
         FalseAnswerScore += 1;
     }
 
-    @Override
     public boolean CheckAnswer(String Answer) {
-        if (Answer.equals(WaitAnswer)) {
-            return true;
-        }
-        return false;
+        return Answer.equals(WaitAnswer);
     }
     public void DoCheckAnswer(String Answer) {
-        if (CheckAnswer(Answer)) {
-            TrueAnswer();
-        }
-        else {
-            FalseAnswer();
-        }
-
+        if (CheckAnswer(Answer)) {TrueAnswer();}
+        else {FalseAnswer();}
     }
 
-    @Override
     public boolean CheckNumberRemainQuiz(int quizCount) {
-        if (quizCount <= AnswerScore) {
-            return false;
-        }
-        return true;
+        return quizCount > AnswerScore;
     }
-
-    public boolean CheckQuizGame() {return QuizGame;}
 
     public String GetScore() {
         String TAS = String.valueOf(TrueAnswerScore);

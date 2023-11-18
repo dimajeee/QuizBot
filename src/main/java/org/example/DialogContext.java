@@ -9,8 +9,8 @@ public class DialogContext {
         return dialogStatus;
     }
 
-    public void nextDialogContext() {
-        dialogStatus.nextDialogStatus(this);
+    public Response nextDialogContext(String[] req) {
+        return dialogStatus.nextDialogStatus(this, req);
     }
 
     public void previousDialogStatus() {

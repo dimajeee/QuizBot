@@ -1,9 +1,9 @@
-package org.example.GameQuizResponse;
+package org.example;
 
-public class QuizResponse implements QuizResponce {
-    private int QuizCount = 3;
+public class QuizResponse{
+    private final int QuizCount = 3;
     private int CurrentQuizNumber = 0;
-    private String[][] quizTable;
+    private final String[][] quizTable;
     private String Quiz;
     private String Answer;
     public int getQuizCount() {
@@ -29,10 +29,7 @@ public class QuizResponse implements QuizResponce {
         quizTable[2][1] = "Меркурий";
     }
     public boolean CheckRemainQuiz() {
-        if (CurrentQuizNumber < QuizCount) {
-            return true;
-        }
-        return false;
+        return CurrentQuizNumber < QuizCount;
     }
 
     public void UpdateQA() {
