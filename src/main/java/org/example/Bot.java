@@ -24,7 +24,7 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         String chatID = update.getMessage().getChatId().toString();
-        String text = update.getMessage().getText(); // делаем проверку на null, try catch
+        String text = update.getMessage().getText(); // добавить проверку на null, try catch
         Request request = new Request(text);
         System.out.println(text);
 

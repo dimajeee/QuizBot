@@ -17,7 +17,7 @@ public class Handler {
     public Response handleWithoutResponse(String chatID, Request request) {
         Person person = getPersonByChatID(chatID);
         String HandleRequest = request.getRequest();
-        String[] req = HandleRequest.split(" "); // проверкa
+        String[] req = HandleRequest.split(" "); // добавить проверку на то, что все хорошо засплитилось
         if (person.getBotCondition()) {
             return handleWithResponse(person, req);
         }
