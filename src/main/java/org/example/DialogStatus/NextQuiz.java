@@ -33,6 +33,7 @@ public class NextQuiz implements DialogStatus{
         }
         else {
             response1 = dataResponse.falseAnswer; // неправильно
+            person.getGameQuiz().DoCheckAnswer(req[0]);
             String response2 = SecondResponse(dialogContext);
             response.setResponse(response1 + "\n" + response2);
         }

@@ -6,16 +6,17 @@ import org.example.DialogStatus.Start;
 import java.util.ArrayList;
 
 public class Handler {
-    private final ArrayList<Person> persons;
+    Person personss=new Person();
     private final DataResponse dataResponse;
     public Handler() {
-        persons = new ArrayList<Person>();
+
         dataResponse = new DataResponse();
     }
     private Response response = new Response();
 
     public Response handleWithoutResponse(String chatID, Request request) {
-        Person person = getPersonByChatID(chatID);
+        Person person = personss.getPersonByChatID(chatID);
+        System.out.println(person.getChatID());
         String HandleRequest = request.getRequest();
         String[] req = HandleRequest.split(" "); // добавить проверку на то, что все хорошо засплитилось
         if (person.getBotCondition()) {
@@ -46,15 +47,7 @@ public class Handler {
         return response;
     }
 
-    private Person getPersonByChatID(String chatID) {
-        for (Person person : persons) {
-            if (person.getChatID().equals(chatID)) {
-                return person;
-            }
-        }
-        persons.add(new Person(chatID));
-        return persons.get(persons.size() - 1);
-    }
+
 
     private boolean CheckCommand(String req) { // переделать
         return switch (req) {
