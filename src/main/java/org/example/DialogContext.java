@@ -9,7 +9,7 @@ public class DialogContext {
         return dialogStatus;
     }
 
-    public Response nextDialogContext(String[] req) {
+    public Response nextDialogContext(String req) {
         return dialogStatus.nextDialogStatus(this, req);
     }
 

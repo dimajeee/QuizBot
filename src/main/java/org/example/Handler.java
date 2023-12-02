@@ -18,18 +18,18 @@ public class Handler {
         Person person = personss.getPersonByChatID(chatID);
         System.out.println(person.getChatID());
         String HandleRequest = request.getRequest();
-        String[] req = HandleRequest.split(" "); // добавить проверку на то, что все хорошо засплитилось
+        String req = HandleRequest; // добавить проверку на то, что все хорошо засплитилось
         if (person.getBotCondition()) {
             return handleWithResponse(person, req);
         }
         else {
-            if (req[0].equals("/start"))
+            if (req.equals("/start"))
             {
                 person.setBotCondition(true); //
                 return handleWithResponse(person, req);
 
             }
-            else if (req[0].equals("/stop")) {
+            else if (req.equals("/stop")) {
                 person.setBotCondition(false);
                 return handleWithResponse(person, req);
             }
@@ -40,8 +40,8 @@ public class Handler {
         }
     }
 
-    public Response handleWithResponse (Person person, String[] req) {
-        if (CheckCommand(req[0])) person.getDialogContext().setDialogStatus(new Start(person, dataResponse));
+    public Response handleWithResponse (Person person, String req) {
+        if (CheckCommand(req)) person.getDialogContext().setDialogStatus(new Start(person, dataResponse));
         response = person.getDialogContext().nextDialogContext(req);
         response.setResponseFlag(true);
         return response;

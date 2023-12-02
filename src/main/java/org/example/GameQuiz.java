@@ -4,8 +4,11 @@ public class GameQuiz {
     private int TrueAnswerScore;
     private int FalseAnswerScore;
     private int AnswerScore;
-    private String[] WaitAnswer=new String[10];
+    private String WaitAnswer;
 
+    public String getWaitAnswer() {
+        return WaitAnswer;
+    }
 
     private boolean QuizGame;
     public boolean getQuizGame() {
@@ -15,7 +18,7 @@ public class GameQuiz {
     public void setQuizGame(boolean quizGame) {QuizGame = quizGame;}
 
 
-    public void setWaitAnswer(String[] waitAnswer) {
+    public void setWaitAnswer(String waitAnswer) {
         WaitAnswer = waitAnswer;
     }
 
@@ -37,18 +40,17 @@ public class GameQuiz {
     }
 
     public boolean CheckAnswer(String Answer) {
-        for (int i=0; i<2;i++) {
-            if (Answer.equals(WaitAnswer[i])) {
-                return true;
-            }
+        if (Answer.equals(WaitAnswer)) {
+
+            return true;
         }
-        System.out.println("неверное");
+
         return false;
     }
     public void DoCheckAnswer(String Answer) {
         if (CheckAnswer(Answer)) {TrueAnswer();}
         else {
-            System.out.println("жопа");
+
             FalseAnswer();}
     }
 

@@ -20,9 +20,9 @@ public class Start implements DialogStatus{
         return "Start";
     }
     @Override
-    public Response nextDialogStatus(DialogContext dialogContext, String[] req) {
+    public Response nextDialogStatus(DialogContext dialogContext, String req) {
         response = new Response();
-        switch (req[0]) {
+        switch (req) {
             case "/help":
                 response.setResponse(dataResponse.help);
                 dialogContext.setDialogStatus(new Start(person, dataResponse));
@@ -74,8 +74,9 @@ public class Start implements DialogStatus{
         person.getQuizResponse().ResetQuiz(); // обнуляем квиз
         if (person.getQuizResponse().CheckRemainQuiz()) { // если еще остались квизы в копилке
             person.getQuizResponse().UpdateQA(); // обновляем квиз, под капотом устанавливается quiz и answer
-            person.getGameQuiz().setWaitAnswer(person.getQuizResponse().getAnswer()); // установим то, какой ответ от пользователя ждем
+            person.getGameQuiz().setWaitAnswer(person.getQuizResponse().getCorrectAnswer()); // установим то, какой ответ от пользователя ждем
             response.setResponse(dataResponse.quiz + "\n" + person.getQuizResponse().getQuiz()); // начало квиза и первый вопрос
+            response.setKeyboardRows(person.getQuizResponse().getQuizKeyboardrows());
         }
         else {
             response.setResponse(dataResponse.notRemainQuiz); // вопросов в копилке больше нет
@@ -104,7 +105,7 @@ public class Start implements DialogStatus{
                 local = true;
             }
             if (person.getGameQuiz().CheckNumberRemainQuiz(person.getQuizResponse().getQuizCount()) && local) { // если еще остались квизы в копилке
-                person.getGameQuiz().setWaitAnswer(person.getQuizResponse().getAnswer()); // установим то, какой ответ от пользователя ждем
+                person.getGameQuiz().setWaitAnswer(person.getQuizResponse().getCorrectAnswer()); // установим то, какой ответ от пользователя ждем
                 response.setResponse(person.getQuizResponse().getQuiz()); // начало квиза и первый вопрос
             }
             else {
